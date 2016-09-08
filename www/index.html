@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="msapplication-tap-highlight" content="no" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+	<!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+	<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+	<!-- Good default declaration:
+	* gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+	* https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+	* Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+		* Enable inline JS: add 'unsafe-inline' to default-src
+		* Enable eval(): add 'unsafe-eval' to default-src
+	* Create your own at http://cspisawesome.com
+	-->
+	<!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+	<link rel="stylesheet" type="text/css" href="css/jquery.mobile.css" />
+	<link rel="stylesheet" type="text/css" href="css/jquery.mobile.theme.css" />
+	<link href="http:/fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet" type="text/css" >
+	<link rel="stylesheet" type="text/css" href="css/app.css" />
+	<title>FeedReader</title>
+</head>
+
+<body>
+	<div data-role="page" id="home">
+		<div data-role="header" data-theme="b">
+			<h1>FeedReader</h1>
+		</div>
+		<div data-role="content">
+			<h1 id="date"></h1>
+			<p>Welcome to FeedReader. Please choose an option</p>
+			<a href="#feeds" class="ui-btn" data-role="button">List Feeds</a>
+			<a href="#add" class="ui-btn" data-role="button">Add Feed</a>
+		</div>
+		<div data-role="footer" data-theme="b">
+			<h4>Copyright &copy; BabinKuk 2016</h4>
+		</div>
+	</div>
+
+	<div data-role="page" id="feeds">
+		<div data-role="header" data-theme="b">
+			<a href="#home" data-icon="home" data-iconpos="notext">Go Back</a>
+			<h1>List Feeds</h1>
+		</div>
+		<div data-role="content">
+			<ul id="feed-list" data-role="listview" data-filter="true"></ul>
+		</div>
+		<div data-role="footer" data-theme="b">
+			<h4>Copyright &copy; BabinKuk 2016</h4>
+		</div>
+	</div>
+
+	<div data-role="page" id="feed">
+		<div data-role="header" data-theme="b">
+			<a href="#feeds" data-icon="carat-l" data-iconpos="notext" onclick="setResults()">Go Back</a>
+			<h1>Feed Entries</h1>
+			<div data-role="navbar" class="ui-body-b">
+				<ul>
+					<li><a id="show-more-entries" href="#" data-icon="refresh" data-iconpos="left" onclick="showMore()">Show More</a></li>
+					<li><a id="delete-feed" href="#" data-icon="delete" data-iconpos="left" onclick="deleteFeed()">Delete Feed</a></li>
+				</ul>
+			</div>
+		</div>
+		<div data-role="content">
+			<ul id="stories" data-role="list-view" data-filter="true"></ul>
+		</div>
+		<div data-role="footer" data-theme="b">
+			<h4>Copyright &copy; BabinKuk 2016</h4>
+		</div>
+	</div>
+
+	<div data-role="page" id="entry">
+		<div data-role="header" data-theme="b">
+			<a href="#feeds" data-icon="carat-l" data-iconpos="notext">Go Back</a>
+			<h1>Entry Details</h1>
+		</div>
+		<div data-role="content">
+			<div id="entry-details"></div>
+		</div>
+		<div data-role="footer" data-theme="b">
+			<h4>Copyright &copy; BabinKuk 2016</h4>
+		</div>
+	</div>
+
+	<div data-role="page" id="add">
+		<div data-role="header" data-theme="b">
+			<a href="#home" data-icon="home" data-iconpos="notext">Go Back</a>
+			<h1>Add Feed</h1>
+		</div>
+		<div data-role="content">
+			<form id="add-form" onsubmit="addFeed()" data-ajax="false">
+				<div data-role="fieldcontain">
+					<label for="feed-name">Feed Name:</label>
+					<input type="text" id="name" name="name" required="required"/>
+				</div>
+				<div data-role="fieldcontain">
+					<label for="feed-url">Feed URL:</label>
+					<input type="url" id="url" name="url" required="required"/>
+				</div>
+				<input type="submit" value="Add Feed" data-icon="plus"/>
+			</form>
+		</div>
+		<div data-role="footer" data-theme="b">
+			<h4>Copyright &copy; BabinKuk 2016</h4>
+		</div>
+	</div>
+	
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.mobile.js"></script>
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script type="text/javascript" src="cordova.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+</body>
+
+</html>
